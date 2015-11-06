@@ -1,2 +1,3 @@
-# RPG-ItemSystem-BZA-based-
-Unity5 RPG Item System
+# RPG ItemSystem (BZA based)
+
+This is the repository for demo of UNITY5 RPG Item System.
