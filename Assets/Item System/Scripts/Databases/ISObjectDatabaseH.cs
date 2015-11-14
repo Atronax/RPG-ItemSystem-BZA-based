@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace RPG.ItemSystem.Editor
 {
 	[System.Serializable]
-	public class ISObjectDatabaseH<D,T> where D: Database<T> where T: ISObject, new()
+	public class ISObjectDatabaseH<D,T> where D: Database<T> where T: ISDatabaseObject, new()
 	{
 		#region public
 		/// <summary>

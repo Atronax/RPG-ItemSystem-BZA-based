@@ -1,4 +1,12 @@
-﻿using UnityEditor;
+﻿/// <summary>
+/// November 9, 2015
+/// Author: Zamana Max
+/// 
+/// Partial class of ISObjectDatabaseEditor.
+/// Represents base editor window functionals.
+/// </summary>
+
+using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
@@ -7,6 +15,10 @@ namespace RPG.ItemSystem.Editor
 	public partial class ISObjectDatabaseEditor : EditorWindow
 	{
 		#region public
+		/// <summary>
+		/// Initializes editor window.
+		/// Makes it callable using Ctrl+Shift+i hotkey combination
+		/// </summary>
 		[MenuItem("RPG/Database/Item System Editor %#i")]
 		public static void Init()
 		{
@@ -16,6 +28,9 @@ namespace RPG.ItemSystem.Editor
 			ODE_Window.Show ();
 		}	
 
+		/// <summary>
+		/// During the enable event, initializes databases needed for editors work and sets default tab state.
+		/// </summary>
 		public void OnEnable()
 		{
 			InitializeDatabases ();
@@ -23,6 +38,9 @@ namespace RPG.ItemSystem.Editor
 			m_TabState = TabState.ABOUT;
 		}
 
+		/// <summary>
+		/// Shows UI to the user.
+		/// </summary>
 		public void OnGUI()
 		{
 			DisplayTabulationsBar ();
@@ -31,8 +49,8 @@ namespace RPG.ItemSystem.Editor
 				switch (m_TabState) 
 				{
 					case TabState.QUALITY:
-						DisplayQualityList(true);
-						DisplayQualityDetails();
+						m_QualityDB.DisplayList(true);
+						m_QualityDB.DisplayDetails();
 						break;
 
 					case TabState.WEAPON:
@@ -60,12 +78,22 @@ namespace RPG.ItemSystem.Editor
 		#endregion
 
 		#region private
+		/// <summary>
+		/// Initializes the databases.
+		/// Use DatabaseManager in runtime.
+		/// Use ISObjectDatabaseH in editor.
+		/// </summary>
 		private void InitializeDatabases()
 		{
-			m_QualityDB = DatabaseManager.QualityDatabase;
+			// m_QualityDB = DatabaseManager.QualityDatabase;
+			// m_WeaponDB = DatabaseManager.WeaponDatabase;
+			// m_ArmorDB = DatabaseManager.ArmorDatabase;
+
+			m_QualityDB = new ISObjectDatabaseH<ISQualityDatabase, ISQuality> (QUALITY_DATABASE_FILE_NAME, "Quality");
 			m_WeaponDB = new ISObjectDatabaseH<ISWeaponDatabase, ISWeapon> (WEAPON_DATABASE_FILE_NAME, "Weapon");
 			m_ArmorDB = new ISObjectDatabaseH<ISArmorDatabase, ISArmor> (ARMOR_DATABASE_FILE_NAME, "Armor");
 
+			m_QualityDB.Initialize ();
 			m_WeaponDB.Initialize ();
 			m_ArmorDB.Initialize ();
 		}
@@ -75,9 +103,10 @@ namespace RPG.ItemSystem.Editor
 		private const string WEAPON_DATABASE_FILE_NAME = "RPG_WeaponDatabase";
 		private const string ARMOR_DATABASE_FILE_NAME = "RPG_ArmorDatabase";
 
-		private ISQualityDatabase m_QualityDB;
+		// private ISQualityDatabase m_QualityDB;
 		private ISObjectDatabaseH<ISWeaponDatabase, ISWeapon> m_WeaponDB;
 		private ISObjectDatabaseH<ISArmorDatabase, ISArmor> m_ArmorDB;		
+		private ISObjectDatabaseH<ISQualityDatabase, ISQuality> m_QualityDB;
 		#endregion
 	}
 }

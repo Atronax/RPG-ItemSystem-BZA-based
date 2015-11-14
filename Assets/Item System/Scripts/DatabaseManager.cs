@@ -1,7 +1,6 @@
 ﻿/// <summary>
 /// November 6, 2015
 /// Author: Zamana Max
-/// DatabaseManager
 /// 
 /// In runtime mode returns any of stored databases.
 /// In editor mode generates empty databases.

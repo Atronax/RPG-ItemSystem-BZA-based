@@ -1,14 +1,23 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// November 9, 2015
+/// Author: Zamana Max
+/// 
+/// Partial class of ISObjectDatabaseEditor.
+/// Represents editor window TabBar functionals.
+/// </summary>
+
+
+using UnityEngine;
 using System.Collections;
 
 namespace RPG.ItemSystem.Editor
 {
 	public partial class ISObjectDatabaseEditor 
 	{
-		#region public
-		#endregion
-
 		#region private
+		/// <summary>
+		/// Displays the tabulations bar.
+		/// </summary>
 		private void DisplayTabulationsBar()
 		{
 			GUILayout.BeginHorizontal ("Box", GUILayout.ExpandWidth (true));

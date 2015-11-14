@@ -1,4 +1,11 @@
-﻿#if UNITY_EDITOR
+﻿/// <summary>
+/// November 9, 2015
+/// Author: Zamana Max
+/// 
+/// Represents weapon item parameters.
+/// </summary>
+
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 
@@ -11,16 +18,29 @@ namespace RPG.ItemSystem
 	public class ISWeapon : ISObject, I_ISGameObject, I_ISWeapon, I_ISDestructible
 	{
 		#region public
+		/// <summary>
+		/// Default constructor.
+		/// Initializes a new instance of the <see cref="RPG.ItemSystem.ISWeapon"/> class using default values.
+		/// </summary>
 		public ISWeapon ()
 		{
 		}
 
+		/// <summary>
+		/// Prototyping constructor.
+		/// Initializes a new instance of the <see cref="RPG.ItemSystem.ISWeapon"/> class using values of the other instance of that class.
+		/// </summary>
+		/// <param name="RHS">Instance, used as a prototype.</param>
 		public ISWeapon (ISWeapon RHS)
 		{
 			base.Clone (RHS);
 			Clone (RHS);
 		}
 
+		/// <summary>
+		/// Makes this instance a clone of the specified Prototype.
+		/// </summary>
+		/// <param name="Prototype">Prototype.</param>
 		public void Clone (ISWeapon Prototype)
 		{
 			m_MinDamage = Prototype.MinDamage;
@@ -31,24 +51,41 @@ namespace RPG.ItemSystem
 		}
 
 		// ======== ISGameObject interface
+
+		/// <summary>
+		/// Gets the prefab.
+		/// </summary>
+		/// <value>The prefab.</value>
 		public GameObject Prefab 
 		{
 			get { return m_Prefab; }
 		}
 
 		// ======== ISWeapon interface
+
+		/// <summary>
+		/// Attacks.
+		/// </summary>
 		public int Attack ()
 		{
 			// Weapon attack effect. Implement it.
 			return 0;
 		}
 
+		/// <summary>
+		/// Gets or sets the minimum damage.
+		/// </summary>
+		/// <value>The minimum damage.</value>
 		public int MinDamage 
 		{
 			get { return m_MinDamage; }
 			set { m_MinDamage = (value < 0) ? 0 : ((value > m_MaxDamage) ? m_MaxDamage : value); }
 		}
 
+		/// <summary>
+		/// Gets or sets the max damage.
+		/// </summary>
+		/// <value>The max damage.</value>
 		public int MaxDamage 
 		{
 			get { return m_MaxDamage; }
@@ -56,6 +93,12 @@ namespace RPG.ItemSystem
 		}
 
 		// ======== ISDestructible interface
+
+		/// <summary>
+		/// Lowers current durability level by PT.
+		/// Prevents exceeding of the current durability level beyond zero.
+		/// </summary>
+		/// <param name="PT">Damage taken.</param>
 		public void BreakBy (int PT)
 		{
 			if (m_CurrentDurability >= PT)
@@ -66,11 +109,19 @@ namespace RPG.ItemSystem
 			ApplyBrokenEffect();
 		}
 
+		/// <summary>
+		/// Applies the broken effect.
+		/// </summary>
 		public void ApplyBrokenEffect ()
 		{
 			// Weapon broken effect. For example, we may lower the damage depending on the current durability level.
 		}
 
+		/// <summary>
+		/// Adds PT to the current durability level.
+		/// Prevents exceeding of the current durability level beyond maximum durability level.
+		/// </summary>
+		/// <param name="PT">Points repaired.</param>
 		public void RepairBy (int PT)
 		{
 			if (m_CurrentDurability <= m_MaximumDurability - PT)
@@ -81,16 +132,27 @@ namespace RPG.ItemSystem
 			ApplyRepairedEffect ();
 		}
 
+		/// <summary>
+		/// Applies the repaired effect.
+		/// </summary>
 		public void ApplyRepairedEffect ()
 		{
 			// Weapon repaired effect. For example, we may add the damage depending on the current durability level.
 		}
 
+		/// <summary>
+		/// Gets the current durability level.
+		/// </summary>
+		/// <value>The current durability level.</value>
 		public int CurrentDurability 
 		{
 			get { return m_CurrentDurability; }
 		}
 
+		/// <summary>
+		/// Gets the maximum durability level.
+		/// </summary>
+		/// <value>The maximum durability level.</value>
 		public int MaximumDurability 
 		{
 			get { return m_MaximumDurability; }
@@ -98,6 +160,9 @@ namespace RPG.ItemSystem
 
 		// move to another EDITOR class
 		#if UNITY_EDITOR
+		/// <summary>
+		/// Displays the details editor.
+		/// </summary>
 		public override void DisplayDetailsEditor ()
 		{
 			base.DisplayDetailsEditor ();

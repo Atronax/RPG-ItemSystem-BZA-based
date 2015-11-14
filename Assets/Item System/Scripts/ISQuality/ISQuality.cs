@@ -1,4 +1,11 @@
-﻿#if UNITY_EDITOR
+﻿/// <summary>
+/// November 9, 2015
+/// Author: Zamana Max
+/// 
+/// Represents item quality type, which is described by its name and background icon.
+/// </summary>
+
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 
@@ -8,55 +15,37 @@ using System.Collections;
 namespace RPG.ItemSystem
 {
 	[System.Serializable]
-	public class ISQuality : I_ISQuality 
+	public class ISQuality : ISDatabaseObject, I_ISQuality
 	{
 		#region public
+		/// <summary>
+		/// Default contructor.
+		/// Initializes a new instance of the <see cref="RPG.ItemSystem.ISQuality"/> class using default values.
+		/// </summary>
 		public ISQuality ()
 		{
 
 		}
 
+		/// <summary>
+		/// Prototyping constructor.
+		/// Initializes a new instance of the <see cref="RPG.ItemSystem.ISQuality"/> class using values of the other instance of that class.
+		/// </summary>
+		/// <param name="RHS">Instance, used as a prototype.</param>
 		public ISQuality (ISQuality RHS)
 		{
-			Clone (RHS);
-		}
-
-		public ISQuality (string QName, Sprite QIcon)
-		{
-			m_Name = Name;
-			m_Icon = Icon;
-		}
-
-		public void Clone (ISQuality Prototype)
-		{
-			m_Name = Prototype.Name;
-			m_Icon = Prototype.Icon;
-		}
-
-		public string Name 
-		{
-			get { return m_Name; }
-			set { m_Name = value; }
-		}
-
-		public Sprite Icon 
-		{
-			get { return m_Icon; }
-			set { m_Icon = value; }
+			base.Clone (RHS);
 		}
 
 		#if UNITY_EDITOR
-		public void DisplayDetailsEditor ()
+		/// <summary>
+		/// Displays the details editor.
+		/// </summary>
+		public override void DisplayDetailsEditor ()
 		{
-			m_Name = EditorGUILayout.TextField ("Name: ", m_Name);
-			m_Icon = EditorGUILayout.ObjectField ("Icon: ", m_Icon, typeof(Sprite), false) as Sprite;
+			base.DisplayDetailsEditor ();
 		}
 		#endif
-		#endregion
-
-		#region private
-		[SerializeField] private string m_Name;
-		[SerializeField] private Sprite m_Icon;
 		#endregion
 	}
 }

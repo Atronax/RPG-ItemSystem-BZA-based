@@ -1,7 +1,6 @@
 ﻿/// <summary>
 /// November 6, 2015
 /// Author: Zamana Max
-/// Database
 /// 
 /// Stores all the item data of type T in a single list. 
 /// Gives access to this list.
